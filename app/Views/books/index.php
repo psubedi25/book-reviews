@@ -1,250 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= esc($title) ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            background: linear-gradient(135deg, #f5f7fa, #e4e9f0);
-            font-family: 'Inter', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><?= esc($title) ?></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #e4e9f0);
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+    }
 
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: #4a3f35;
-            text-align: center;
-            margin: 50px 0 30px;
-        }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #4a3f35;
+      text-align: center;
+      margin: 40px 0 20px;
+    }
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-        }
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 0 5% 40px;
+    }
 
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            color: #a37d56 !important;
-            font-size: 1.6rem;
-        }
+    .book-card {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      transition: 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .nav-link {
-            color: #333 !important;
-            font-weight: 500;
-        }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+    }
 
-        .nav-link:hover {
-            color: #c19a6b !important;
-        }
+    .book-cover {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background: #f0f0f0;
+    }
 
-        .btn-outline-success {
-            border-color: #a37d56;
-            color: #a37d56;
-        }
+    .book-details {
+      padding: 15px;
+      flex-grow: 1;
+    }
 
-        .btn-outline-success:hover {
-            background-color: #a37d56;
-            color: white;
-        }
+    .book-details h3 {
+      font-size: 1.1rem;
+      color: #007BFF;
+    }
 
-        #ajaxBook {
-            max-width: 900px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-left: 5px solid #007BFF;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-        }
+    .book-details p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 6px;
+    }
 
-        .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-            padding: 40px 5%;
-        }
+    .book-links {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 15px 15px;
+      gap: 10px;
+    }
 
-        @media (min-width: 1200px) {
-            .book-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
+    .btn {
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      font-weight: 500;
+    }
 
-        .book-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+    .navbar {
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
 
-        .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      color: #a37d56 !important;
+      font-size: 1.6rem;
+    }
 
-        .book-cover {
-            width: 100%;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            display: block;
-            background-color: #f0f0f0;
-            border-bottom: 1px solid #eee;
-        }
+    .add-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid #007BFF;
+      border-radius: 8px;
+      color: #007BFF;
+      font-weight: 500;
+      margin-bottom: 30px;
+      text-decoration: none;
+    }
 
-        .book-details {
-            padding: 15px;
-            flex-grow: 1;
-        }
+    .add-btn:hover {
+      background: #007BFF;
+      color: #fff;
+      text-decoration: none;
+    }
 
-        .book-details h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #007BFF;
-            margin-bottom: 8px;
-        }
-
-        .book-details p {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 6px;
-        }
-
-        .book-links {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px;
-            gap: 10px;
-        }
-
-        .btn {
-            font-size: 0.85rem;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: 500;
-        }
-
-        .btn-primary {
-            background-color: #007BFF;
-            border: none;
-        }
-
-        .btn-success {
-            background-color: #28a745;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-success:hover {
-            background-color: #1e7e34;
-        }
-
-        .rounded-avatar {
-            border: 2px solid #ccc;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-        }
-    </style>
+    #ajaxBook {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-left: 5px solid #007BFF;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    }
+  </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg py-3">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold text-uppercase" href="#">GyanMala</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<?= site_url('/home') ?>">GyanMala</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="<?= site_url('/booklist') ?>">Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search" method="get" action="<?= site_url('/googlebooks/search') ?>">
-                <input class="form-control me-2" type="search" name="q" placeholder="Search Books" required>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <a href="#" class="ms-3">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="rounded-avatar shadow-sm" alt="User">
-            </a>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link active" href="<?= site_url('/booklist') ?>">Books</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= site_url('/about') ?>">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="<?= site_url('/contact') ?>">Contact</a></li>
+      </ul>
+      <form class="d-flex" method="get" action="<?= site_url('/googlebooks/search') ?>">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search Books" required>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <a href="<?= site_url('/user') ?>" class="ms-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="32" class="rounded-circle border shadow-sm" alt="User">
+      </a>
     </div>
+  </div>
 </nav>
 
 <h2><?= esc($title) ?></h2>
 
+<div class="text-center">
+  <a href="<?= site_url('/books/create') ?>" class="add-btn">Add Your Favorite Book</a>
+</div>
+
 <p id="ajaxBook"></p>
 
-<?php if ($books_list !== []): ?>
-    <div class="book-grid">
-        <?php foreach ($books_list as $book): ?>
-            <div class="book-card">
-                <img src="<?= esc($book['cover_image']) ?>" alt="Book Cover" class="book-cover">
-                <div class="book-details">
-                    <h3><?= esc($book['title']) ?></h3>
-                    <p><strong>Author:</strong> <?= esc($book['author']) ?></p>
-                    <p><strong>Genre:</strong> <?= esc($book['genre']) ?></p>
-                    <p><strong>Year:</strong> <?= esc($book['published_year']) ?></p>
-                    <p><strong>Rating:</strong> <?= esc($book['rating']) ?></p>
-                    <p><?= esc($book['description']) ?></p>
-                </div>
-                <div class="book-links">
-                    <a href="<?= site_url('books/' . esc($book['slug'], 'url')) ?>" class="btn btn-primary">View Details</a>
-                    <button onclick="getBookData('<?= esc($book['slug'], 'url') ?>')" class="btn btn-success">View via AJAX</button>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php else: ?>
-    <h3 class="text-center mt-4">No Books Found</h3>
-    <p class="text-center">Sorry, we couldn't find any books to show.</p>
+<!-- ? LOCAL BOOKS -->
+<?php if ($books_list): ?>
+  <div class="book-grid">
+    <?php foreach ($books_list as $book): ?>
+      <div class="book-card">
+        <img src="<?= esc($book['cover_image']) ?>" alt="Book Cover" class="book-cover">
+        <div class="book-details">
+          <h3><?= esc($book['title']) ?></h3>
+          <p><strong>Author:</strong> <?= esc($book['author']) ?></p>
+          <p><strong>Genre:</strong> <?= esc($book['genre']) ?></p>
+          <p><strong>Year:</strong> <?= esc($book['published_year']) ?></p>
+          <p><strong>Rating:</strong> <?= esc($book['rating']) ?></p>
+          <p><?= esc($book['description']) ?></p>
+        </div>
+        <div class="book-links">
+          <a href="<?= site_url('books/' . esc($book['slug'], 'url')) ?>" class="btn btn-primary">View Details</a>
+          <button class="btn btn-success" onclick="getBookData('<?= esc($book['slug'], 'url') ?>')">View via AJAX</button>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
 <?php endif; ?>
 
+<!-- ? GOOGLE SAVED BOOKS -->
+<?php if (!empty($savedBooks)): ?>
+  <h2 class="mt-5 mb-3">Books Saved from Google</h2>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 px-5">
+    <?php foreach ($savedBooks as $book): ?>
+      <div class="col">
+        <div class="book-card">
+          <?php if (!empty($book['thumbnail'])): ?>
+            <img src="<?= esc($book['thumbnail']) ?>" alt="Book Cover" class="book-cover">
+          <?php else: ?>
+            <div class="book-cover bg-secondary text-white d-flex align-items-center justify-content-center">No Image</div>
+          <?php endif; ?>
+          <div class="book-details">
+            <h3><?= esc($book['title']) ?></h3>
+            <p><strong>Author:</strong> <?= esc($book['author']) ?></p>
+            <p><?= esc($book['description']) ?: '<em>No description available</em>' ?></p>
+          </div>
+          <div class="book-links">
+            <a href="<?= site_url('googlebooks/' . $book['id']) ?>" class="btn btn-primary">View Details</a>
+            <button class="btn btn-success" onclick="getGoogleBookData(<?= $book['id'] ?>)">View via AJAX</button>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>
+
+<!-- AJAX Scripts -->
 <script>
-    function getBookData(slug) {
-        fetch("https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/ajax/get/" + slug)
-            .then(response => response.json())
-            .then(book => {
-                const ajaxOutput = document.getElementById("ajaxBook");
-                ajaxOutput.innerHTML = `
-                    <div class="d-flex flex-wrap gap-4">
-                        <img src="${book.cover_image}" alt="Book Cover" style="width: 200px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                        <div>
-                            <h4>${book.title}</h4>
-                            <p><strong>Author:</strong> ${book.author}</p>
-                            <p><strong>Genre:</strong> ${book.genre}</p>
-                            <p><strong>Published Year:</strong> ${book.published_year}</p>
-                            <p><strong>Rating:</strong> ${book.rating}</p>
-                            <p>${book.description}</p>
-                        </div>
-                    </div>
-                `;
-                ajaxOutput.scrollIntoView({ behavior: "smooth", block: "start" });
-            })
-            .catch(() => {
-                document.getElementById("ajaxBook").innerHTML = "Error loading book data.";
-            });
-    }
+  function getBookData(slug) {
+    fetch("<?= site_url('/ajax/get/') ?>" + slug)
+      .then(res => res.json())
+      .then(book => {
+        document.getElementById("ajaxBook").innerHTML = `
+          <div class="d-flex flex-wrap gap-4">
+            <img src="${book.cover_image}" style="width:200px;" class="rounded shadow-sm" alt="Cover">
+            <div>
+              <h4>${book.title}</h4>
+              <p><strong>Author:</strong> ${book.author}</p>
+              <p><strong>Genre:</strong> ${book.genre}</p>
+              <p><strong>Year:</strong> ${book.published_year}</p>
+              <p><strong>Rating:</strong> ${book.rating}</p>
+              <p>${book.description}</p>
+            </div>
+          </div>
+        `;
+        ajaxBook.scrollIntoView({ behavior: "smooth" });
+      });
+  }
+
+  function getGoogleBookData(id) {
+    fetch("<?= site_url('/ajax/googlebook/') ?>" + id)
+      .then(res => res.json())
+      .then(book => {
+        document.getElementById("ajaxBook").innerHTML = `
+          <div class="d-flex flex-wrap gap-4">
+            <img src="${book.thumbnail}" style="width:200px;" class="rounded shadow-sm" alt="Cover">
+            <div>
+              <h4>${book.title}</h4>
+              <p><strong>Author:</strong> ${book.author}</p>
+              <p>${book.description}</p>
+            </div>
+          </div>
+        `;
+        ajaxBook.scrollIntoView({ behavior: "smooth" });
+      });
+  }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

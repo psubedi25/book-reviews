@@ -13,9 +13,8 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Hero Section */
     .hero-image {
-      background-image: url('https://images.unsplash.com/photo-1535905748047-14b0f6b62d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); /* Library Image */
+      background-image: url('https://images.unsplash.com/photo-1535905748047-14b0f6b62d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
       background-size: cover;
       background-position: center;
       height: 300px;
@@ -122,21 +121,21 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-uppercase" href="home.php" style="letter-spacing: 1px; color: #a16939;">GyanMala</a>
+    <a class="navbar-brand fw-bold text-uppercase" href="<?= base_url('/home') ?>" style="letter-spacing: 1px; color: #a16939;">GyanMala</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link text-dark" href="#">Books</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" href="#">About Us</a></li>
-        <li class="nav-item"><a class="nav-link active text-dark" aria-current="page" href="#">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="<?= base_url('/books') ?>">Books</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="<?= base_url('/about') ?>">About Us</a></li>
+        <li class="nav-item"><a class="nav-link active text-dark" aria-current="page" href="<?= base_url('/contact') ?>">Contact Us</a></li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search Books"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      <a href="#" class="ms-3">
+      <a href="<?= base_url('/user') ?>" class="ms-3">
         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" width="32" height="32" class="rounded-circle border border-secondary shadow-sm"/>
       </a>
     </div>
@@ -154,22 +153,29 @@
 <!-- Contact Form -->
 <div class="contact-container">
   <h2>Contact Us</h2>
-  <form method="post" action="#">
+
+  <?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+  <?php endif; ?>
+
+  <form method="post" action="<?= base_url('/contact/submit') ?>">
+    <?= csrf_field() ?> <!--CSRF Protection -->
+
     <div class="mb-3">
       <label for="name" class="form-label"><i class="bi bi-person form-icon"></i> Your Name *</label>
-      <input type="text" class="form-control" id="name" placeholder="Enter your full name" required/>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required/>
     </div>
     <div class="mb-3">
       <label for="email" class="form-label"><i class="bi bi-envelope form-icon"></i> Email Address *</label>
-      <input type="email" class="form-control" id="email" placeholder="you@example.com" required/>
+      <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required/>
     </div>
     <div class="mb-3">
       <label for="subject" class="form-label"><i class="bi bi-pencil form-icon"></i> Subject *</label>
-      <input type="text" class="form-control" id="subject" placeholder="Enter the subject" required/>
+      <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter the subject" required/>
     </div>
     <div class="mb-3">
       <label for="message" class="form-label"><i class="bi bi-chat-text form-icon"></i> Message *</label>
-      <textarea class="form-control" id="message" rows="5" placeholder="Write your message here..." required></textarea>
+      <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
     </div>
     <div class="text-center">
       <button type="submit" class="btn btn-send">Send Message</button>

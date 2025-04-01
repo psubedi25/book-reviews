@@ -203,20 +203,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active text-dark" aria-current="page" href="#">Books</a>
+                    <a class="nav-link active text-dark" aria-current="page" href="https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/books">Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">About Us</a>
+                    <a class="nav-link text-dark" href="https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/about">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Contact Us</a>
+                    <a class="nav-link text-dark" href="https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/contact">Contact Us</a>
                 </li>
             </ul>
             <form class="d-flex" role="search" method="get" action="https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/googlebooks/search">
     <input class="form-control me-2" type="search" name="q" placeholder="Search Books" aria-label="Search" required>
     <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
-            <a href="#" class="ms-3">
+            <a href="https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/user" class="ms-3">
                 <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User" width="32" height="32" class="rounded-circle border border-1 border-secondary shadow-sm">
             </a>
         </div>
@@ -271,11 +271,11 @@
     <h2>Explore Nepali Literature</h2>
     <p>Welcome to GyanMala, a place where you can dive deep into various genres of Nepali literature. Whether you are a fan of classic poetry, thrilling horror, captivating mystery, heartwarming romance, or exploring historical tales, we have something for every literature enthusiast!</p>
     
-    <p><strong>Poetry</a>:</strong> Enjoy the timeless beauty of Nepali poetry, filled with deep emotions and cultural resonance.</p>
-    <p><strong>Horror</a>:</strong> Experience the chilling and spine-tingling stories that will keep you awake at night.</p>
-    <p><strong>Mystery</a>:</strong> Immerse yourself in gripping mysteries and thrilling tales that will keep you guessing till the end.</p>
-    <p><strong>Romance</a>:</strong> Fall in love with beautiful romantic stories that touch the heart and soul.</p>
-    <p><strong>Historical</a>:</strong> Explore historical events and figures through the power of storytelling and narration.</p>
+    <p><strong>Poetry:</strong> Enjoy the timeless beauty of Nepali poetry, filled with deep emotions and cultural resonance.</p>
+    <p><strong>Horror:</strong> Experience the chilling and spine-tingling stories that will keep you awake at night.</p>
+    <p><strong>Mystery:</strong> Immerse yourself in gripping mysteries and thrilling tales that will keep you guessing till the end.</p>
+    <p><strong>Romance:</strong> Fall in love with beautiful romantic stories that touch the heart and soul.</p>
+    <p><strong>Historical:</strong> Explore historical events and figures through the power of storytelling and narration.</p>
 
     <p>So, what are you waiting for? Start exploring the categories now and get lost in the world of Nepali literature!</p>
 </div>

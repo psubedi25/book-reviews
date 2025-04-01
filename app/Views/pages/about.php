@@ -52,6 +52,19 @@
             height: auto;
         }
 
+	.home-link {
+  text-decoration: underline;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.home-link:hover {
+  color: var(--primary-color); /* soft gold tone */
+  text-decoration: none;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+
         .about-section {
             max-width: 1200px;
             margin: -60px auto 50px;
@@ -89,9 +102,15 @@
         }
 
         .about-card img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 300px; 
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+        .about-card .text-content {
+            flex: 1;
         }
 
         .mission-vision {
@@ -144,6 +163,10 @@
                 align-items: center;
             }
 
+            .about-card img {
+                margin-right: 30px;
+            }
+
             .mission-vision {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -167,7 +190,8 @@
 <body>
 
     <header>
-        <h1>About GyanMala</h1>
+        <h1>About <a href="<?= base_url('/home') ?>" class="home-link">GyanMala</a></h1>
+
         <div class="header-wave">
             <svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="#ffffff"></path></svg>
         </div>
@@ -176,8 +200,8 @@
     <section class="about-section">
         <h2>Who We Are</h2>
         <div class="about-card">
-            <img src="#" alt="Nepali Literature">
-            <div>
+            <img src="https://mi-linux.wlv.ac.uk/~2306946/ci4-book-reviews/public/uploads/about.png" alt="Nepali Literature">
+            <div class="text-content">
                 <p><strong>GyanMala</strong> is dedicated to Nepali literature, honoring the voices shaping our literary landscape.</p>
                 <p>Our platform offers curated reviews and spotlights on influential Nepali writers, making literature accessible to all.</p>
             </div>

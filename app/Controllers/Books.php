@@ -2,18 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Models\BooksModel;
+use App\Models\BooksModel; // Local books
+use App\Models\BookModel;  // Google Books API saved books
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Books extends BaseController
 {
     public function index()
     {
-        $model = model(BooksModel::class);
+        $booksModel = model(BooksModel::class);
+        $savedModel = model(BookModel::class);
 
         $data = [
-            'title'      => 'Book Collection List',
-            'books_list' => $model->getBooks(),
+            'title'       => 'Book Collection List',
+            'books_list'  => $booksModel->getBooks(),
+            'savedBooks'  => $savedModel->findAll(), // Added saved books
         ];
 
         return view('templates/header', $data)

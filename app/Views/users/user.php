@@ -77,52 +77,48 @@
   </ul>
 
   <!-- Tab contents -->
-<div class="tab-content" id="formTabsContent">
-  <!-- Login Form -->
-  <div class="tab-pane fade show active" id="login" role="tabpanel">
-    <form action="<?= base_url('/user/login') ?>" method="POST">
-    <?= csrf_field() ?>
+  <div class="tab-content" id="formTabsContent">
+    <!-- Login Form -->
+    <div class="tab-pane fade show active" id="login" role="tabpanel">
+      <form action="<?= base_url('/user/login') ?>" method="POST">
+        <?= csrf_field() ?>
 
-      <div class="mb-3">
-        <label for="loginUsername" class="form-label">Username or Email</label>
-        <input type="text" class="form-control" id="loginUsername" name="username" required>
-      </div>
-      <div class="mb-3">
-        <label for="loginPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="loginPassword" name="password" required>
-      </div>
-      <div class="d-grid">
-        <button type="submit" class="btn btn-custom">Login</button>
-      </div>
-    </form>
-  </div>
+        <div class="mb-3">
+          <label for="loginEmail" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="loginEmail" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="loginPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="loginPassword" name="password" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-custom">Login</button>
+        </div>
+      </form>
+    </div>
 
-  <!-- Register Form -->
-  <div class="tab-pane fade" id="register" role="tabpanel">
-    <form action="<?= base_url('/user/register') ?>" method="POST">
+    <!-- Register Form -->
+    <div class="tab-pane fade" id="register" role="tabpanel">
+      <form action="<?= base_url('/user/register') ?>" method="POST">
+        <?= csrf_field() ?>
 
-    <?= csrf_field() ?>
-
-      <div class="mb-3">
-        <label for="fullname" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="fullname" name="fullname" required>
-      </div>
-      <div class="mb-3">
-        <label for="regEmail" class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="regEmail" name="email" required>
-      </div>
-      <div class="mb-3">
-        <label for="regUsername" class="form-label">Choose Username</label>
-        <input type="text" class="form-control" id="regUsername" name="username" required>
-      </div>
-      <div class="mb-3">
-        <label for="regPassword" class="form-label">Choose Password</label>
-        <input type="password" class="form-control" id="regPassword" name="password" required>
-      </div>
-      <div class="d-grid">
-        <button type="submit" class="btn btn-custom">Register</button>
-      </div>
-    </form>
+        <div class="mb-3">
+          <label for="fullname" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="fullname" name="fullname" required>
+        </div>
+        <div class="mb-3">
+          <label for="regEmail" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="regEmail" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="regPassword" class="form-label">Choose Password</label>
+          <input type="password" class="form-control" id="regPassword" name="password" required>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-custom">Register</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 

@@ -11,7 +11,7 @@ class User extends BaseController
     {
         $data['title'] = 'User Login/Register';
         return view('templates/header', $data)
-            . view('users/user') // Your user.php view goes in app/Views/users/
+            . view('users/user') // Make sure your view reflects the updated form fields
             . view('templates/footer');
     }
 
@@ -20,27 +20,26 @@ class User extends BaseController
         $session = session();
         $request = \Config\Services::request();
 
-        $username = $request->getPost('username');
+        $email = $request->getPost('email');
         $password = $request->getPost('password');
 
         $userModel = new UserModel();
 
-        // Try to find user by username or email
-        $user = $userModel->where('username', $username)
-                          ->orWhere('email', $username)
-                          ->first();
+        // Try to find user by email only
+        $user = $userModel->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {
             // Set session variables
             $session->set([
                 'user_id'  => $user['id'],
-                'username' => $user['username'],
+                'fullname' => $user['fullname'],
+                'email'    => $user['email'],
                 'logged_in' => true,
             ]);
 
-            return redirect()->to('/home'); // Change this to your real dashboard page
+            return redirect()->to('/home'); // Your home/dashboard page
         } else {
-            $session->setFlashdata('error', 'Invalid username or password.');
+            $session->setFlashdata('error', 'Invalid email or password.');
             return redirect()->to('/user');
         }
     }
@@ -55,13 +54,12 @@ class User extends BaseController
         $data = [
             'fullname' => $request->getPost('fullname'),
             'email'    => $request->getPost('email'),
-            'username' => $request->getPost('username'),
             'password' => password_hash($request->getPost('password'), PASSWORD_DEFAULT),
         ];
 
-        // Check for duplicate username or email
-        if ($userModel->where('username', $data['username'])->first() || $userModel->where('email', $data['email'])->first()) {
-            $session->setFlashdata('error', 'Username or Email already exists.');
+        // Check for duplicate email
+        if ($userModel->where('email', $data['email'])->first()) {
+            $session->setFlashdata('error', 'Email already exists.');
             return redirect()->to('/user');
         }
 

@@ -29,21 +29,20 @@ class Filters extends BaseFilters
 
     public array $required = [
         'before' => [
-            'forcehttps', // Force Global Secure Requests
-            'pagecache',  // Web Page Caching
+            'forcehttps',
+            'pagecache',
         ],
         'after' => [
-            'pagecache',   // Web Page Caching
-            'performance', // Performance Metrics
-            'toolbar',     // Debug Toolbar
+            'pagecache',
+            'performance',
+            'toolbar',
         ],
     ];
 
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
+            // Enable CSRF but exclude ajax/saveBook
+            'csrf' => ['except' => ['ajax/saveBook']],
         ],
         'after' => [
             // 'honeypot',
@@ -51,10 +50,8 @@ class Filters extends BaseFilters
         ],
     ];
 
-    // ✅ CSRF for all POST requests
-    public array $methods = [
-        'post' => ['csrf'],
-    ];
+    // Do NOT use CSRF here anymore
+    public array $methods = [];
 
     public array $filters = [];
 }
