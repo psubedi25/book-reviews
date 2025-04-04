@@ -113,7 +113,6 @@
       <img src="<?= esc($book['cover_image']) ?>" alt="Book Cover" class="book-cover">
 
       <div class="book-meta">
-        <!-- Book Title and Details -->
         <h1 class="book-title"><?= esc($book['title']) ?></h1>
         <p><strong>Author:</strong> <?= esc($book['author']) ?></p>
         <p><strong>Genre:</strong> <?= esc($book['genre']) ?></p>
@@ -127,9 +126,70 @@
       <p><?= esc($book['description']) ?></p>
     </div>
 
-    <!-- Back Button -->
+    <!-- Flash Message Section -->
+    <?php if (session()->getFlashdata('message')): ?>
+      <div class="alert alert-success mt-4"><?= session()->getFlashdata('message') ?></div>
+    <?php endif; ?>
+    <?php if (session()->getFlashdata('errors')): ?>
+      <div class="alert alert-danger mt-3">
+        <?php foreach (session()->getFlashdata('errors') as $err): ?>
+          <div><?= esc($err) ?></div>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+
+    <!-- ? REVIEW FORM -->
+    <div class="mt-5">
+      <h4>Leave a Review</h4>
+<?php if (session()->get('logged_in')): ?>
+  <form method="post" action="<?= site_url('books/submitReview') ?>">
+    <?= csrf_field() ?>
+    <input type="hidden" name="book_slug" value="<?= esc($book['slug']) ?>">
+
+    <div class="mb-3">
+      <label class="form-label">You are reviewing as <strong><?= esc(session()->get('fullname')) ?></strong></label>
+    </div>
+
+    <div class="mb-3">
+      <label for="comment" class="form-label">Your Comment</label>
+      <textarea name="comment" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="rating" class="form-label">Rating (0-5)</label>
+      <input type="number" name="rating" class="form-control" min="0" max="5" step="0.1" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Review</button>
+  </form>
+<?php else: ?>
+  <div class="alert alert-warning mt-3">
+    You must be logged in to submit a review.
+    <a href="<?= site_url('/user') ?>" class="btn btn-outline-primary btn-sm ms-2">Login / Register</a>
+  </div>
+	<?php endif; ?>
+</div>
+
+    <!-- ?? DISPLAY USER REVIEWS -->
+    <div class="mt-5">
+      <h4>User Reviews</h4>
+      <?php if (!empty($reviews)): ?>
+        <ul class="list-group">
+          <?php foreach ($reviews as $rev): ?>
+            <li class="list-group-item">
+              <div class="fw-bold"><?= esc($rev['reviewer']) ?> <span class="text-muted">(<?= esc($rev['rating']) ?>/5)</span></div>
+              <div><?= esc($rev['comment']) ?></div>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php else: ?>
+        <p class="text-muted">No reviews yet. Be the first to review this book!</p>
+      <?php endif; ?>
+    </div>
+
+    <!-- Back -->
     <div class="text-center">
-      <a href="<?= site_url('/books') ?>" class="btn btn-back">Back to Book Collection</a>
+      <a href="<?= site_url('/books') ?>" class="btn btn-back mt-4">Back to Book Collection</a>
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@
             <h2 class="card-title"><?= esc($book['title']) ?></h2>
             <h5 class="text-muted mb-3"><?= esc($book['author']) ?></h5>
             <p class="card-text"><?= esc($book['description']) ?></p>
-            <a href="<?= site_url('/booklist') ?>" class="btn btn-outline-primary mt-3">? Back to Booklist</a>
+            <a href="<?= site_url('/books') ?>" class="btn btn-outline-primary mt-3">Back to Books</a>
         </div>
     </div>
 </div>

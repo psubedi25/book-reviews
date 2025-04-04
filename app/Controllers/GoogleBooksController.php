@@ -6,7 +6,7 @@ use App\Models\BookModel;
 
 class GoogleBooksController extends BaseController
 {
-    private $apiKey = 'YOUR_GOOGLE_API_KEY'; // Replace with your actual API key
+    private $apiKey = 'AIzaSyDczBNmBL4uw9DaGRy53VJsV1SBK-d9YQo'; // API key
 
     // Google Book Search
     public function search()

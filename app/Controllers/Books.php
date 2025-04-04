@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Models\BooksModel; // Local books
-use App\Models\BookModel;  // Google Books API saved books
+use App\Models\BooksModel;    // Local books
+use App\Models\BookModel;     // Google saved books
+use App\Models\ReviewModel;   // New Review model
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Books extends BaseController
@@ -14,9 +15,9 @@ class Books extends BaseController
         $savedModel = model(BookModel::class);
 
         $data = [
-            'title'       => 'Book Collection List',
-            'books_list'  => $booksModel->getBooks(),
-            'savedBooks'  => $savedModel->findAll(), // Added saved books
+            'title'      => 'Book Collection List',
+            'books_list' => $booksModel->getBooks(),
+            'savedBooks' => $savedModel->findAll(), // Google books
         ];
 
         return view('templates/header', $data)
@@ -27,12 +28,18 @@ class Books extends BaseController
     public function view(?string $slug = null)
     {
         $model = model(BooksModel::class);
+        $reviewModel = model(ReviewModel::class);
 
         $data['book'] = $model->getBooks($slug);
 
         if ($data['book'] === null) {
             throw new PageNotFoundException('Cannot find the book: ' . $slug);
         }
+
+        $data['reviews'] = $reviewModel
+            ->where('book_slug', $slug)
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
 
         $data['title'] = $data['book']['title'];
 
@@ -41,7 +48,6 @@ class Books extends BaseController
             . view('templates/footer');
     }
 
-    // Show the Create Book Form
     public function create()
     {
         helper('form');
@@ -51,7 +57,6 @@ class Books extends BaseController
             . view('templates/footer');
     }
 
-    // Store Book to DB
     public function store()
     {
         helper(['form', 'url']);
@@ -104,4 +109,30 @@ class Books extends BaseController
             . view('books/success')
             . view('templates/footer');
     }
+
+    // Handle review form submission
+
+    public function submitReview()
+{
+    if (!session()->get('logged_in')) {
+        // Store intent to submit so we can resume after login
+        session()->setFlashdata('redirect_after_login', current_url());
+        return redirect()->to('/user')->with('error', 'You must be logged in to submit a review.');
+    }
+
+    $reviewModel = model(ReviewModel::class);
+
+    $data = [
+        'book_slug' => $this->request->getPost('book_slug'),
+        'reviewer'  => session()->get('fullname'), // Automatically use logged in name
+        'comment'   => $this->request->getPost('comment'),
+        'rating'    => $this->request->getPost('rating'),
+    ];
+
+    if (! $reviewModel->insert($data)) {
+        return redirect()->back()->withInput()->with('errors', $reviewModel->errors());
+    }
+
+    return redirect()->back()->with('message', 'Review submitted successfully!');
+ }
 }

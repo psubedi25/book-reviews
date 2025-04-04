@@ -13,38 +13,39 @@ use App\Controllers\Contact;
  * @var RouteCollection $routes
  */
 
-// Default Route
+// ?? Default Home
 $routes->get('/', [Home::class, 'index']);
 
-// Book Routes (Local DB)
-$routes->get('books',             [Books::class, 'index']);   // List all books
-$routes->get('books/create',      [Books::class, 'create']);  // Book creation form
-$routes->post('books',            [Books::class, 'store']);   // Save new book
-$routes->get('books/(:segment)',  [Books::class, 'view']);    // View single book
+// ?? Local Book Routes
+$routes->get('books',                    [Books::class, 'index']);
+$routes->get('books/create',             [Books::class, 'create']);
+$routes->post('books',                   [Books::class, 'store']);
+$routes->get('books/(:segment)',         [Books::class, 'view']);
+$routes->post('books/submitReview',      [Books::class, 'submitReview']); // ? Review submission (secured in controller)
 
-// AJAX Routes
-$routes->get('ajax/get/(:segment)',     [Ajax::class, 'get']);          // Fetch local book by slug
-$routes->post('ajax/saveBook',          [Ajax::class, 'saveBook']);     // Save Google Book via AJAX
-$routes->get('ajax/googlebook/(:num)',  [Ajax::class, 'getGoogleBook/$1']); // NEW: Get Google Book by ID via AJAX
+// ?? AJAX Routes
+$routes->get('ajax/get/(:segment)',      [Ajax::class, 'get']);
+$routes->post('ajax/saveBook',           [Ajax::class, 'saveBook']);
+$routes->get('ajax/googlebook/(:num)',   [Ajax::class, 'getGoogleBook/$1']);
 
-// Google Books API Integration
-$routes->get('googlebooks/search',      [GoogleBooksController::class, 'search']);   // Search books
-$routes->post('googlebooks/save',       [GoogleBooksController::class, 'saveBook']); // (Optional backup route)
-$routes->get('googlebooks/(:num)',      [GoogleBooksController::class, 'view/$1']);  // NEW: View Google Book by ID
+// ?? Google Books API
+$routes->get('googlebooks/search',       [GoogleBooksController::class, 'search']);
+$routes->post('googlebooks/save',        [GoogleBooksController::class, 'saveBook']);
+$routes->get('googlebooks/(:num)',       [GoogleBooksController::class, 'view/$1']);
 
-// User Authentication
-$routes->get('user',              [User::class, 'index']);     // Login/Register form
-$routes->post('user/login',      [User::class, 'login']);     // Login submit
-$routes->post('user/register',   [User::class, 'register']);  // Register submit
-$routes->get('user/logout',      [User::class, 'logout']);    // Logout
+// ?? User Authentication
+$routes->get('user',                     [User::class, 'index']);
+$routes->post('user/login',              [User::class, 'login']);
+$routes->post('user/register',           [User::class, 'register']);
+$routes->get('user/logout',              [User::class, 'logout']);
 
-// Contact Us
-$routes->get('contact',          [Contact::class, 'index']);   // Contact form
-$routes->post('contact/submit', [Contact::class, 'submit']);  // Submit form
+// ?? Contact Page
+$routes->get('contact',                  [Contact::class, 'index']);
+$routes->post('contact/submit',          [Contact::class, 'submit']);
 
-// Static Pages
-$routes->get('pages',              [Pages::class, 'index']);   // Page index
-$routes->get('pages/(:segment)',   [Pages::class, 'view']);    // Individual pages
+// ?? Static Pages
+$routes->get('pages',                    [Pages::class, 'index']);
+$routes->get('pages/(:segment)',         [Pages::class, 'view']);
 
-// Catch-All Route (MUST be last)
-$routes->get('(:segment)',         [Pages::class, 'view']);    // Fallback for any other route
+// ?? Catch-All Route
+$routes->get('(:segment)',               [Pages::class, 'view']); // Keep this last

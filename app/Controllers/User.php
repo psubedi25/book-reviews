@@ -37,7 +37,7 @@ class User extends BaseController
                 'logged_in' => true,
             ]);
 
-            return redirect()->to('/home'); // Your home/dashboard page
+            return redirect()->to('/view');
         } else {
             $session->setFlashdata('error', 'Invalid email or password.');
             return redirect()->to('/user');
